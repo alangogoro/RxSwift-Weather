@@ -13,6 +13,7 @@
 		CEECC13126C4D20300157498 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEECC12F26C4D20300157498 /* Main.storyboard */; };
 		CEECC13326C4D20700157498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEECC13226C4D20700157498 /* Assets.xcassets */; };
 		CEECC13626C4D20700157498 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEECC13426C4D20700157498 /* LaunchScreen.storyboard */; };
+		CEECC13F26C4D84000157498 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECC13E26C4D84000157498 /* Weather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		CEECC13226C4D20700157498 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEECC13526C4D20700157498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEECC13726C4D20700157498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEECC13E26C4D84000157498 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		CEECC11D26C4D20300157498 = {
 			isa = PBXGroup;
 			children = (
+				CEECC13D26C4D81100157498 /* Models */,
 				CEECC12826C4D20300157498 /* RxSwiftWeather */,
 				CEECC12726C4D20300157498 /* Products */,
 			);
@@ -65,6 +68,14 @@
 				CEECC13726C4D20700157498 /* Info.plist */,
 			);
 			path = RxSwiftWeather;
+			sourceTree = "<group>";
+		};
+		CEECC13D26C4D81100157498 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CEECC13E26C4D84000157498 /* Weather.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEECC13F26C4D84000157498 /* Weather.swift in Sources */,
 				CEECC12E26C4D20300157498 /* ViewController.swift in Sources */,
 				CEECC12A26C4D20300157498 /* AppDelegate.swift in Sources */,
 				CEECC12C26C4D20300157498 /* SceneDelegate.swift in Sources */,
