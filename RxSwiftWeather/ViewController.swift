@@ -28,7 +28,7 @@ class ViewController: UIViewController {
          * 再隨著每次事件，取得 textField 上的文字
          * 把文字做為參數呼叫查詢天氣的 API */
         cityNameTextField.rx.controlEvent(.editingDidEndOnExit)
-            .asObservable()
+        .asObservable()
             .map { self.cityNameTextField.text }
             .subscribe(onNext: { cityName in
                 
@@ -67,18 +67,32 @@ class ViewController: UIViewController {
         
         // ⭐️ 利用 URL 生成天氣資料資源
         let resource = Resource<WeahterData>(url: url)
-         
+        
+        // MARK: - ⭐️ Driver
+        let search = URLRequest.load(resource: resource)
+            .observeOn(MainScheduler.instance)
+            .asDriver(onErrorJustReturn: WeahterData.empty)
+        
+        search.map { "\($0.main.temp) °C" }
+            .drive(temperatureLabel.rx.text)
+            .disposed(by: disposeBag)
+        search.map { "\($0.main.humidity)°💧" }
+            .drive(humidityLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        /*
         let search = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
             .catchErrorJustReturn(WeahterData.empty)
         
-        /* ⭐️ Binding Observables */
+        // MARK: - ⭐️ Binding Observables
         search.map { "\($0.main.temp) °C" }
             .bind(to: self.temperatureLabel.rx.text)
             .disposed(by: disposeBag)
         search.map { "\($0.main.humidity)°💧" }
             .bind(to: self.humidityLabel.rx.text)
             .disposed(by: disposeBag)
+        */
         
         /* 原本的寫法：subscribe URLRequest.load() 回傳的 weatherData
          URLRequest.load(resource: resource)
