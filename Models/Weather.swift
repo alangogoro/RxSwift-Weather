@@ -16,4 +16,9 @@ struct WeahterData: Decodable {
     let main: Weather
 }
 
-let api_sample = "https://api.openweathermap.org/data/2.5/weather?q=tokyo&lang=ja&APPID=9aa8eb47ca75209cd4c3bccc88045531"
+extension WeahterData {
+    // 自定義的空 WeatherData
+    static var empty: WeahterData {
+        return WeahterData(main: Weather(temp: 0.0, humidity: 0.0))
+    }
+}
