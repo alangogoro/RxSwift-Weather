@@ -15,8 +15,29 @@ struct Resource<T> {
 }
 
 extension URLRequest {
+    static func load<T: Decodable>(resource: Resource<T>) -> Observable<T> {
+        
+        return Observable.just(resource.url)
+            // ⭐️ 包含 <HTTPURLResponse 和取到的 Data> 的 Tuple
+            .flatMap { url -> Observable<(response: HTTPURLResponse, data: Data)> in
+                let request = URLRequest(url: url)
+                // ⭐️ Rx.response → 回傳 URLRequest 的回應 的 Observable序列
+                return URLSession.shared.rx.response(request: request)
+            }.map { response, data in
+                // ➡️ 落在 200-299 的區間內才做 JSON 解析
+                if 200..<300 ~= response.statusCode {
+                    return try JSONDecoder().decode(T.self, from: data)
+                } else {
+                    throw RxCocoaURLError.httpRequestFailed(response: response,
+                                                            data: data)
+                }
+                
+            }.asObservable()
+        
+    }
+    
     // 限制參數需遵從 Decodable 協定
-    static func load<T: Decodable>(resource: Resource<T>)
+    /* static func load<T: Decodable>(resource: Resource<T>)
     -> Observable<T> {
         // TODO: WHAT IS THIS
         return Observable.from([resource.url])
@@ -29,5 +50,5 @@ extension URLRequest {
                 return try JSONDecoder().decode(T.self, from: data)
             }.asObservable()
         
-    }
+    } */
 }
