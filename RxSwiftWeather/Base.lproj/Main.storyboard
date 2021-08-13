@@ -8,17 +8,53 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Good Weather-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RxSwiftWeather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsl-fV-r8b">
+                                <rect key="frame" x="107" y="136" width="200" height="34"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="hg7-iF-auF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycy-wC-KDI">
+                                <rect key="frame" x="164.5" y="426.5" width="85" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpV-TV-Og1">
+                                <rect key="frame" x="176" y="590" width="62" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zsl-fV-r8b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="48" id="K9Y-T5-PxX"/>
+                            <constraint firstItem="ycy-wC-KDI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fDr-GF-YPg"/>
+                            <constraint firstItem="GpV-TV-Og1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hLC-SY-z9x"/>
+                            <constraint firstItem="zsl-fV-r8b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vtW-CH-ZoZ"/>
+                            <constraint firstItem="ycy-wC-KDI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xdM-DK-yFl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GpV-TV-Og1" secondAttribute="bottom" constant="240" id="yMe-qu-1fj"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="f2Q-mW-8SP"/>
+                    <navigationItem key="navigationItem" title="Good Weather" id="f2Q-mW-8SP"/>
+                    <connections>
+                        <outlet property="cityNameTextField" destination="zsl-fV-r8b" id="71j-RX-2ys"/>
+                        <outlet property="humidityLabel" destination="GpV-TV-Og1" id="LoO-GH-r8j"/>
+                        <outlet property="temperatureLabel" destination="ycy-wC-KDI" id="lKq-cv-h4l"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -44,8 +80,14 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
