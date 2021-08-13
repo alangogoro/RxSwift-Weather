@@ -71,7 +71,15 @@ class ViewController: UIViewController {
         // MARK: - ⭐️ Driver
         let search = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
-            .asDriver(onErrorJustReturn: WeahterData.empty)
+            .catchError { error in
+                /* catch thrown error */
+                print(error.localizedDescription)
+                return Observable.just(WeatherData.empty)
+            }.asDriver(onErrorJustReturn: WeahterData.empty)
+        
+        /* let search = URLRequest.load(resource: resource)
+            .observeOn(MainScheduler.instance)
+            .asDriver(onErrorJustReturn: WeahterData.empty) */
         
         search.map { "\($0.main.temp) °C" }
             .drive(temperatureLabel.rx.text)
