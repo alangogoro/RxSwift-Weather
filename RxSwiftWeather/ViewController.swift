@@ -68,16 +68,19 @@ class ViewController: UIViewController {
         // ⭐️ 利用 URL 生成天氣資料資源
         let resource = Resource<WeatherData>(url: url)
         
-        // MARK: - ⭐️ Driver
+        // MARK: - ⭐️ Retry & Catch Error ⭐️
         let search = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
+            /* ⭐️ 發生 Error 時，retry(count) 一定次數 */
+            .retry(3)
+            /* ➡️ 接住被 throw 出的
+             * RxCocoaURLError.httpRequestFailed 錯誤 */
             .catchError { error in
-                /* ➡️ 接住被 throw 出的
-                 * RxCocoaURLError.httpRequestFailed 錯誤 */
                 print(error.localizedDescription)
                 return Observable.just(WeatherData.empty)
             }.asDriver(onErrorJustReturn: WeatherData.empty)
         
+        // MARK: - ⭐️ Driver
         /* let search = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
             .asDriver(onErrorJustReturn: WeahterData.empty) */
