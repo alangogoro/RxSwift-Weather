@@ -12,13 +12,13 @@ struct Weather: Decodable {
     let humidity: Double
 }
 
-struct WeahterData: Decodable {
+struct WeatherData: Decodable {
     let main: Weather
 }
 
-extension WeahterData {
+extension WeatherData {
     // 自定義的空 WeatherData
-    static var empty: WeahterData {
-        return WeahterData(main: Weather(temp: 0.0, humidity: 0.0))
+    static var empty: WeatherData {
+        return WeatherData(main: Weather(temp: 0.0, humidity: 0.0))
     }
 }
