@@ -17,7 +17,7 @@ struct WeatherData: Decodable {
 }
 
 extension WeatherData {
-    // 自定義的空 WeatherData
+    /// 自定義的空的 WeatherData
     static var empty: WeatherData {
         return WeatherData(main: Weather(temp: 0.0, humidity: 0.0))
     }

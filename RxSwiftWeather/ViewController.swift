@@ -28,7 +28,7 @@ class ViewController: UIViewController {
          * 再隨著每次事件，取得 textField 上的文字
          * 把文字做為參數呼叫查詢天氣的 API */
         cityNameTextField.rx.controlEvent(.editingDidEndOnExit)
-        .asObservable()
+            .asObservable()
             .map { self.cityNameTextField.text }
             .subscribe(onNext: { cityName in
                 
@@ -70,10 +70,11 @@ class ViewController: UIViewController {
         
         // MARK: - ⭐️ Retry & Catch Error ⭐️
         let search = URLRequest.load(resource: resource)
+            /* ⭐️ 限制 Callback 程式在主執行緒上，便於更新 UI */
             .observeOn(MainScheduler.instance)
             /* ⭐️ 發生 Error 時，retry(count) 一定次數 */
             .retry(3)
-            /* ➡️ 接住被 throw 出的
+            /* ➡️ 接住被 load(resource: ) throw 出的
              * RxCocoaURLError.httpRequestFailed 錯誤 */
             .catchError { error in
                 print(error.localizedDescription)
@@ -81,10 +82,6 @@ class ViewController: UIViewController {
             }.asDriver(onErrorJustReturn: WeatherData.empty)
         
         // MARK: - ⭐️ Driver
-        /* let search = URLRequest.load(resource: resource)
-            .observeOn(MainScheduler.instance)
-            .asDriver(onErrorJustReturn: WeahterData.empty) */
-        
         search.map { "\($0.main.temp) °C" }
             .drive(temperatureLabel.rx.text)
             .disposed(by: disposeBag)
@@ -95,9 +92,12 @@ class ViewController: UIViewController {
         /*
         let search = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
+            /* ⭐️ catchErrorJustReturn 如果 API 未抓到正確的資料，return 一個自訂的元素 */
             .catchErrorJustReturn(WeahterData.empty)
+         */
         
         // MARK: - ⭐️ Binding Observables
+        /*
         search.map { "\($0.main.temp) °C" }
             .bind(to: self.temperatureLabel.rx.text)
             .disposed(by: disposeBag)
@@ -106,11 +106,11 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         */
         
-        /* 原本的寫法：subscribe URLRequest.load() 回傳的 weatherData
-         URLRequest.load(resource: resource)
-            /* ⭐️ observeOn(MainScheduler.instance) 限制程式跑在 UI 執行緒上 */
+        // MARK: - 一開始的寫法
+        /* subscribe URLRequest 擴充回傳的 Observable<WeatherData> */
+        /*
+        URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
-            /* ⭐️ catchErrorJustReturn 如果 API 未抓到正確的資料，Return 一個自訂的元素 */
             .catchErrorJustReturn(WeahterData.empty)
             .subscribe(onNext: { weahterData in
                 let weather = weahterData.main
